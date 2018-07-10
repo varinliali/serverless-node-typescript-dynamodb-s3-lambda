@@ -9,16 +9,14 @@ export function appendToFile (params) {
         .then((res) => {
             // convert buffer to string
           const content = res.Body.toString()
-          console.log('got existing file content', content)
           return Promise.resolve(content.concat(Body))
         })
         .then((res) => {
-          console.log('writing concatinated results', res)
           return writeToS3({ ...params, Body: res })
         })
 }
 
-export function appendOrCreateFile (fileName, dataToWrite, shouldAppend) {
+export function createOrAppendToFile (fileName, dataToWrite, shouldAppend) {
   const params = {
     Body: dataToWrite,
     Bucket: BUCKET_NAME,
@@ -36,11 +34,9 @@ export function appendOrCreateFile (fileName, dataToWrite, shouldAppend) {
 export function checkFileExists (params) {
   return s3.headObject(params).promise()
         .then((results) => {
-          console.log('found existing file', results)
           return Promise.resolve(true)
         }).catch((headErr) => {
           if (headErr.code === 'NotFound') {
-            console.log('no file found, new one will be created')
             return Promise.resolve(false)
           } else {
             return Promise.reject(headErr)
@@ -49,7 +45,6 @@ export function checkFileExists (params) {
 }
 
 export function writeToS3 (params) {
-  console.log('writing to s3', params)
   return s3.putObject(params).promise()
 }
 
