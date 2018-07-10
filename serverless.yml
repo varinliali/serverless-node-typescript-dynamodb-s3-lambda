@@ -16,7 +16,7 @@ provider:
   environment:
     NODE_ENV: PRODUCTION
     BUCKET: ${self:custom.bucket}
-    DYNAMODB_TABLE: ${self:service.name}-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: Devtool-keys #${self:service.name}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
@@ -39,7 +39,7 @@ functions:
       - http:
           method: get
           path: hello
-          private: true
+          # private: true
 
 resources:
   Resources:
