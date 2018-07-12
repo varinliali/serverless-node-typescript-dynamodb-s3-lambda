@@ -2,13 +2,14 @@ import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
 import { writeToS3 } from '../helpers/s3-helpers'
 import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
-export const createPlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
+export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
-  const body = JSON.parse(event.body)
-  const encodedFile = body.plugin
+  const payload = JSON.parse(event.body)
+  const encodedFile = payload.data
   const decodedFile = Buffer.from(encodedFile, 'base64')
-  const fileName = body.fileName
+  const slug = payload.slug
   const fileSize = decodedFile.byteLength
+  const pluginName = slug.split('-')[0]
 
   // Size validation
   if (fileSize > +process.env.MAX_SIZE_LIMIT) {
@@ -18,11 +19,11 @@ export const createPlugin: Handler = (event: APIGatewayEvent, context: Context, 
     })
   }
 
-  validateAccessToPlugin(key, fileName)
+  validateAccessToPlugin(key, pluginName)
     .then(() => {
       return writeToS3({
         Bucket: process.env.BUCKET,
-        Key: `plugins/${fileName.split('-')[0]}/${fileName}.zip`
+        Key: `plugins/${pluginName}/${slug}.zip`
       })
     })
     .then((data) => {

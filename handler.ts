@@ -1,5 +1,5 @@
 import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
-import { createPlugin } from './api/create-plugin'
+import { createOrUpdatePlugin } from './api/create-plugin'
 import { downloadPlugin } from './api/download-plugin'
 import { getPlugins } from './api/get-plugins'
 
@@ -10,7 +10,7 @@ export const handle: Handler = (event: APIGatewayEvent, context: Context, cb: Ca
   }
 
   if (event.httpMethod === 'POST') {
-    createPlugin(event, context, cb)
+    createOrUpdatePlugin(event, context, cb)
   } else if (event.path.includes('download')) {
     downloadPlugin(event, context, cb)
   } else {
