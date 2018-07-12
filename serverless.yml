@@ -5,55 +5,86 @@ service:
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-apigw-binary
+  - serverless-apigwy-binary
 
 custom:
-  bucket: <bucket-name>
-
+  bucket: devtool-plugins
+  dynamodb_table: DevTool-ApiKeys #${self:service.name}-${opt:stage, self:provider.stage}
+  apigwBinary: 
+    types:
+      - '*/*'
 provider:
   name: aws
   runtime: nodejs8.10
   region: eu-central-1
+  role: arn:aws:iam::283181639305:role/lambda_basic_execution
+  apiKeys:
+    - superAdminKey
   environment:
     NODE_ENV: PRODUCTION
     BUCKET: ${self:custom.bucket}
-    DYNAMODB_TABLE: Devtool-keys #${self:service.name}-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE: ${self:custom.dynamodb_table}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
          - "s3:*"
        Resource: "arn:aws:s3:::${self:custom.bucket}/*"
-    - Effect: Allow
+    - Effect: "Allow"
       Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+        - "dynamodb:*"
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.dynamodb_table}"
 
 functions:
-  hello:
-    handler: handler.hello
+  getPlugins:
+    handler: get-plugins.getPlugins
     events:
       - http:
           method: get
-          path: hello
+          path: plugins
+          # private: true
+
+  createPlugin:
+    handler: create-plugin.createPlugin
+    events:
+      - http:
+          method: post
+          path: plugins
+          # private: true
+
+  downloadPlugin:
+    handler: download-plugin.downloadPlugin
+    environment: 
+      MAX_SIZE_LIMIT: '1024'
+    events:
+      - http:
+          method: get
+          path: plugins/{plugin}/download
+          request:
+            parameters:
+              paths:
+                plugin: true
+          contentHandling: CONVERT_TO_BINARY
           # private: true
 
 resources:
   Resources:
-    TodosDynamoDbTable:
+    DevToolPluginsS3Bucket:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        BucketName: ${self:custom.bucket}
+        # add additional custom bucket configuration here
+    DevToolApiKeysDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: id
+            AttributeName: secret
             AttributeType: S
         KeySchema:
           -
-            AttributeName: id
+            AttributeName: secret
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
