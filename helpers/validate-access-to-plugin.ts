@@ -8,7 +8,7 @@ export function validateAccessToPlugin (key: string, plugin: string) {
       if (isAdmin || plugins.includes(plugin)) {
         return Promise.resolve(true)
       } else {
-        return Promise.reject('Provided x-api-key does not have access to requested plugin')
+        return Promise.reject(`the Provided x-api-key: ${key} does not have access to the requested plugin: ${plugin}`)
       }
     })
 }

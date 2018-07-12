@@ -14,7 +14,7 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
   // Size validation
   if (fileSize > +process.env.MAX_SIZE_LIMIT) {
     return cb(null, {
-      body: JSON.stringify('File size is too big'),
+      body: JSON.stringify(`File size ${fileSize} is too big, Max file size is ${process.env.MAX_SIZE_LIMIT}`),
       statusCode: 403
     })
   }

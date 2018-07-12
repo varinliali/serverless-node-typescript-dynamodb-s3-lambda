@@ -6,14 +6,14 @@ const BUCKET_NAME = process.env.BUCKET_NAME
 export function appendToFile (params) {
   const { Body, ...rest } = params
   return getFileContent(rest)
-        .then((res) => {
-            // convert buffer to string
-          const content = res.Body.toString()
-          return Promise.resolve(content.concat(Body))
-        })
-        .then((res) => {
-          return writeToS3({ ...params, Body: res })
-        })
+    .then((res) => {
+      // convert buffer to string
+      const content = res.Body.toString()
+      return Promise.resolve(content.concat(Body))
+    })
+    .then((res) => {
+      return writeToS3({ ...params, Body: res })
+    })
 }
 
 export function createOrAppendToFile (fileName, dataToWrite, shouldAppend) {
@@ -21,7 +21,7 @@ export function createOrAppendToFile (fileName, dataToWrite, shouldAppend) {
     Body: dataToWrite,
     Bucket: BUCKET_NAME,
     Key: fileName
-        // ACL: 'public-read'
+    // ACL: 'public-read'
   }
 
   if (shouldAppend) {
@@ -33,15 +33,15 @@ export function createOrAppendToFile (fileName, dataToWrite, shouldAppend) {
 
 export function checkFileExists (params) {
   return s3.headObject(params).promise()
-        .then((results) => {
-          return Promise.resolve(true)
-        }).catch((headErr) => {
-          if (headErr.code === 'NotFound') {
-            return Promise.resolve(false)
-          } else {
-            return Promise.reject(headErr)
-          }
-        })
+    .then((results) => {
+      return Promise.resolve(true)
+    }).catch((headErr) => {
+      if (headErr.code === 'NotFound') {
+        return Promise.resolve(false)
+      } else {
+        return Promise.reject(headErr)
+      }
+    })
 }
 
 export function writeToS3 (params) {

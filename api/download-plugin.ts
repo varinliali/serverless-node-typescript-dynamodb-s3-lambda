@@ -20,7 +20,7 @@ export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context
       const { Body, ...rest } = result
 
       const response = {
-        body: result.Body,//JSON.stringify(result),
+        body: result.Body,// JSON.stringify(result),
         headers: {
           'Content-Disposition': `attachment; filename=${slug}.zip`,
           'Content-Length': result.ContentLength,
