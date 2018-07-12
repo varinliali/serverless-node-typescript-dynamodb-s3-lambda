@@ -1,14 +1,10 @@
 import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
-import { getFileContent } from './helpers/s3-helpers'
-import { validateAccessToPlugin } from './helpers/validate-access-to-plugin'
+import { getFileContent } from '../helpers/s3-helpers'
+import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
   const plugin = event.pathParameters.plugin
-
-  if (!key) {
-    return cb('Access denied, please set the x-api-key header')
-  }
 
   validateAccessToPlugin(key, plugin)
     .then(() => {

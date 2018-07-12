@@ -36,27 +36,22 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.dynamodb_table}"
 
 functions:
-  getPlugins:
-    handler: get-plugins.getPlugins
+  handlePlugins:
+    handler: handler.handle
+    environment: 
+      MAX_SIZE_LIMIT: '1024'
+ 
     events:
       - http:
           method: get
           path: plugins
           # private: true
 
-  createPlugin:
-    handler: create-plugin.createPlugin
-    events:
       - http:
           method: post
           path: plugins
           # private: true
 
-  downloadPlugin:
-    handler: download-plugin.downloadPlugin
-    environment: 
-      MAX_SIZE_LIMIT: '1024'
-    events:
       - http:
           method: get
           path: plugins/{plugin}/download

@@ -1,6 +1,6 @@
 import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
-import { writeToS3 } from './helpers/s3-helpers'
-import { validateAccessToPlugin } from './helpers/validate-access-to-plugin'
+import { writeToS3 } from '../helpers/s3-helpers'
+import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const createPlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
@@ -18,15 +18,11 @@ export const createPlugin: Handler = (event: APIGatewayEvent, context: Context, 
     })
   }
 
-  if (!key) {
-    return cb('Access denied, please set the x-api-key header')
-  }
-
   validateAccessToPlugin(key, fileName)
     .then(() => {
       return writeToS3({
         Bucket: process.env.BUCKET,
-        Key: `plugins/${fileName.split('-')[0]}/${fileName}`
+        Key: `plugins/${fileName.split('-')[0]}/${fileName}.zip`
       })
     })
     .then((data) => {
