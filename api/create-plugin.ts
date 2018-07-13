@@ -4,12 +4,15 @@ import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
+  // console.log('body', event.body)
   const payload = JSON.parse(event.body)
   const encodedFile = payload.data
-  const decodedFile = Buffer.from(encodedFile, 'base64')
-  const slug = payload.slug
+  // console.log('base64', encodedFile)
+  const decodedFile = Buffer.from(encodedFile, 'binary')
+  // console.log('after', decodedFile)
+  const plugin = payload.plugin
   const fileSize = decodedFile.byteLength
-  const pluginName = slug.split('-')[0]
+  const pluginName = plugin.split('-')[0]
 
   // Size validation
   if (fileSize > +process.env.MAX_SIZE_LIMIT) {
@@ -23,7 +26,8 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
     .then(() => {
       return writeToS3({
         Bucket: process.env.BUCKET,
-        Key: `plugins/${pluginName}/${slug}.zip`
+        Body: decodedFile,
+        Key: `plugins/${pluginName}/${plugin}.zip`
       })
     })
     .then((data) => {
