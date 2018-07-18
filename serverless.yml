@@ -5,15 +5,15 @@ service:
 plugins:
   - serverless-webpack
   - serverless-offline
-  # - serverless-apigw-binary
-  # - serverless-apigwy-binary
+  # - serverless-apigw/-binary
+  - serverless-apigwy-binary
 
 custom:
   bucket: devtool-plugins
   dynamodb_table: DevTool-ApiKeys #${self:service.name}-${opt:stage, self:provider.stage}
-  # apigwBinary: 
-  #   types:
-  #     - 'application/zip'
+  apigwBinary: 
+    types:
+      - 'application/zip'
 provider:
   name: aws
   runtime: nodejs8.10
@@ -22,7 +22,7 @@ provider:
   apiKeys:
     - superAdminKey
   environment:
-    # NODE_ENV: PRODUCTION
+    NODE_ENV: PRODUCTION
     BUCKET: ${self:custom.bucket}
     DYNAMODB_TABLE: ${self:custom.dynamodb_table}
   iamRoleStatements:

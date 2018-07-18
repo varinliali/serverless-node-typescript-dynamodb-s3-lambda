@@ -4,12 +4,12 @@ import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
-  // console.log('body', event.body)
-  const payload = JSON.parse(event.body)
+  const body = Buffer.from(event.body, 'base64').toString()
+  const payload = JSON.parse(body)
   const encodedFile = payload.data
   // console.log('base64', encodedFile)
   const decodedFile = Buffer.from(encodedFile, 'binary')
-  // console.log('after', decodedFile)
+  console.log('after', decodedFile)
   const plugin = payload.plugin
   const fileSize = decodedFile.byteLength
   const slug = plugin.split('-')[0]
