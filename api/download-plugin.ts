@@ -4,12 +4,12 @@ import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
   const key = event.headers['x-api-key']
-  const slug = event.pathParameters.plugin
-  const pluginName = slug.split('-')[0]
+  const plugin = event.pathParameters.plugin
+  const slug = plugin.split('-')[0]
 
-  validateAccessToPlugin(key, pluginName)
+  validateAccessToPlugin(key, slug)
     .then(() => {
-      const filePath = `plugins/${pluginName}/${slug}.zip`
+      const filePath = `plugins/${slug}/${plugin}.zip`
       const params = {
         Bucket: process.env.BUCKET,
         Key: filePath
@@ -22,7 +22,7 @@ export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context
       const response = {
         body: result.Body,// JSON.stringify(result),
         headers: {
-          'Content-Disposition': `attachment; filename=${slug}.zip`,
+          'Content-Disposition': `attachment; filename=${plugin}.zip`,
           'Content-Length': result.ContentLength,
           'Content-Type': result.ContentType,
           'ETag': result.ETag,

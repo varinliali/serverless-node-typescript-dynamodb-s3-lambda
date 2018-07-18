@@ -22,7 +22,7 @@ provider:
   apiKeys:
     - superAdminKey
   environment:
-    NODE_ENV: PRODUCTION
+    # NODE_ENV: PRODUCTION
     BUCKET: ${self:custom.bucket}
     DYNAMODB_TABLE: ${self:custom.dynamodb_table}
   iamRoleStatements:
@@ -51,6 +51,7 @@ functions:
           method: post
           path: plugins
           # private: true
+          # contentHandling: CONVERT_TO_TEXT
 
       - http:
           method: get
@@ -59,7 +60,7 @@ functions:
             parameters:
               paths:
                 plugin: true
-          # contentHandling: CONVERT_TO_BINARY
+          contentHandling: CONVERT_TO_BINARY
           # private: true
 
 resources:

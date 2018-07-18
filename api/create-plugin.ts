@@ -12,7 +12,7 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
   // console.log('after', decodedFile)
   const plugin = payload.plugin
   const fileSize = decodedFile.byteLength
-  const pluginName = plugin.split('-')[0]
+  const slug = plugin.split('-')[0]
 
   // Size validation
   if (fileSize > +process.env.MAX_SIZE_LIMIT) {
@@ -22,12 +22,12 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
     })
   }
 
-  validateAccessToPlugin(key, pluginName)
+  validateAccessToPlugin(key, slug)
     .then(() => {
       return writeToS3({
         Bucket: process.env.BUCKET,
         Body: decodedFile,
-        Key: `plugins/${pluginName}/${plugin}.zip`
+        Key: `plugins/${slug}/${plugin}.zip`
       })
     })
     .then((data) => {
