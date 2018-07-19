@@ -3,9 +3,9 @@ import { getFileContent } from '../helpers/s3-helpers'
 import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
-  const key = event.headers['x-api-key']
-  const plugin = event.pathParameters.plugin
-  const slug = plugin.split('-')[0]
+  const key: string = event.headers['x-api-key']
+  const plugin: string = event.pathParameters.plugin
+  const slug: string = plugin.split('-')[0]
 
   validateAccessToPlugin(key, slug)
     .then(() => {
@@ -16,7 +16,7 @@ export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context
       }
       return getFileContent(params)
     })
-    .then((result) => {
+    .then((result: any) => {
       const { Body, ...rest } = result
 
       const response = {

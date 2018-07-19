@@ -1,8 +1,9 @@
 import { DynamoDB } from 'aws-sdk'
+import { DocumentClient, QueryOutput } from 'aws-sdk/clients/dynamodb'
 
-const dynamoDB = new DynamoDB.DocumentClient()
+const dynamoDB: DocumentClient = new DynamoDB.DocumentClient()
 
-export function getAuthKey (secret: string) {
+export function getAuthKey (secret: string): Promise<QueryOutput> {
   const params = {
     ExpressionAttributeNames: {
       '#secret': 'secret'

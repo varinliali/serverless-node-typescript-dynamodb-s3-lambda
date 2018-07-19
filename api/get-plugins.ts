@@ -2,7 +2,7 @@ import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
 import { getPluginsForAuthKey } from '../helpers/get-plugins-for-auth-key'
 
 export const getPlugins: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
-  const key = event.headers['x-api-key']
+  const key: string = event.headers['x-api-key']
 
   getPluginsForAuthKey(key)
     .then((plugins) => {

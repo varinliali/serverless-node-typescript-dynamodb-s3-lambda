@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.276.1",
+    "aws-sdk": "^2.277.1",
     "source-map-support": "^0.5.6"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "tslint-config-standard": "^7.1.0",
     "typescript": "^2.9.2",
     "webpack": "^4.16.1",
-    "webpack-cli": "^3.0.8"
+    "webpack-cli": "^3.1.0"
   },
   "author": "Khaled Osman",
   "license": "MIT"
