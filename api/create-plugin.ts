@@ -1,5 +1,5 @@
 import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
-import { writeToS3 } from '../helpers/s3-helpers'
+import { writeToS3, checkFileExists } from '../helpers/s3-helpers'
 import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
 export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: Context, cb: Callback) => {
@@ -24,18 +24,26 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
 
   validateAccessToPlugin(key, slug)
     .then(() => {
-      return writeToS3({
-        Bucket: process.env.BUCKET,
-        Body: decodedFile,
-        Key: `plugins/${slug}/${plugin}.zip`
-      })
+      return checkFileExists({ Bucket: process.env.BUCKET, Key: `plugins/${slug}/${plugin}.zip` })
+    }).then(exists => {
+      if (payload.overwrite || !exists) {
+        return writeToS3({
+          Bucket: process.env.BUCKET,
+          Body: decodedFile,
+          Key: `plugins/${slug}/${plugin}.zip`
+        })
+      } else {
+        cb(null, {
+          body: 'file already exists, set the overwrite option to true if you want to overwrite it',
+          statusCode: 403
+        })
+      }
     })
     .then((data) => {
       const response = {
         body: JSON.stringify({
-          // input: event,
-          body: JSON.stringify(data),
-          message: 'uploaded successfully'
+          message: 'fileuploaded successfully',
+          ...data
         }),
         isBase64Encoded: false,
         statusCode: 200
@@ -44,7 +52,7 @@ export const createOrUpdatePlugin: Handler = (event: APIGatewayEvent, context: C
     })
     .catch((err) => {
       // console.log('err', err)
-      cb(err)
+      cb(err.message)
     })
 
 }
