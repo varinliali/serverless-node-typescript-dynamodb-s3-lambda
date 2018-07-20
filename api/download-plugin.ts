@@ -1,4 +1,5 @@
 import { APIGatewayEvent, Callback, Context, Handler } from 'aws-lambda'
+import { GetObjectOutput } from 'aws-sdk/clients/s3';
 import { getFileContent } from '../helpers/s3-helpers'
 import { validateAccessToPlugin } from '../helpers/validate-access-to-plugin'
 
@@ -16,7 +17,7 @@ export const downloadPlugin: Handler = (event: APIGatewayEvent, context: Context
       }
       return getFileContent(params)
     })
-    .then((result: any) => {
+    .then((result: GetObjectOutput) => {
       const { Body, ...rest } = result
 
       const response = {
