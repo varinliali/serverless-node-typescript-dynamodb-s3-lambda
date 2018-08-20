@@ -1,7 +1,6 @@
-import { AWSError, S3 } from 'aws-sdk'
+import { S3 } from 'aws-sdk'
 import { CreateBucketOutput, GetObjectOutput, HeadObjectOutput, ListObjectsV2Output,
   PutObjectOutput } from 'aws-sdk/clients/s3'
-import { PromiseResult } from 'aws-sdk/lib/request'
 
 const s3: S3 = new S3()
 const BUCKET_NAME: string = process.env.BUCKET_NAME
