@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@types/aws-lambda@8.10.7":
-  version "8.10.7"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.7.tgz#1dfd0e1918205f74169658ad8aa8f9c06f161909"
+"@types/aws-lambda@^8.10.11":
+  version "8.10.11"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.11.tgz#2c51a7dacb1abf880d35778aca68ed1075d0b300"
 
-"@types/node@^10.5.2":
-  version "10.5.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
+"@types/node@^10.7.1":
+  version "10.7.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.7.1.tgz#b704d7c259aa40ee052eec678758a68d07132a2e"
 
 "@webassemblyjs/ast@1.5.13":
   version "1.5.13"
@@ -349,9 +349,9 @@ atob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-aws-sdk@^2.277.1:
-  version "2.277.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.277.1.tgz#cbf0f740951ddad5a03402b2b499c4e537ea38bb"
+aws-sdk@^2.296.0:
+  version "2.296.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.296.0.tgz#109016088b7edc063a5e5bc36537632e02e91447"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -3332,9 +3332,9 @@ serverless-apigwy-binary@^0.1.0:
   dependencies:
     bluebird "^3.5.0"
 
-serverless-offline@^3.25.6:
-  version "3.25.6"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-3.25.6.tgz#c730e71e6970c0633db1311fd1c2035c909cd96b"
+serverless-offline@^3.25.8:
+  version "3.25.8"
+  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-3.25.8.tgz#051ae80831eed5a807f7731482037e06ed0dda81"
   dependencies:
     babel-register "^6.18.0"
     boom "^4.2.0"
@@ -3476,9 +3476,9 @@ source-map-support@^0.4.0, source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
-source-map-support@^0.5.6:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.6.tgz#4435cee46b1aab62b8e8610ce60f788091c51c13"
+source-map-support@^0.5.9:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.9.tgz#41bc953b2534267ea2d605bccfa7bfa3111ced5f"
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
@@ -3777,9 +3777,9 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-loader@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.4.2.tgz#778d4464b24436873c78f7f9e914d88194c2a248"
+ts-loader@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.5.0.tgz#a1ce70b2dc799941fb2197605f0d67874097859b"
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
@@ -3874,9 +3874,9 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
+typescript@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.0.1.tgz#43738f29585d3a87575520a4b93ab6026ef11fdb"
 
 uglify-es@^3.3.4:
   version "3.3.9"
@@ -4054,9 +4054,9 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.16.1:
-  version "4.16.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.16.1.tgz#2c4b89ea648125c3e67bcca6adf49ce2c14b2d31"
+webpack@^4.16.5:
+  version "4.16.5"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.16.5.tgz#29fb39462823d7eb8aefcab8b45f7f241db0d092"
   dependencies:
     "@webassemblyjs/ast" "1.5.13"
     "@webassemblyjs/helper-module-context" "1.5.13"

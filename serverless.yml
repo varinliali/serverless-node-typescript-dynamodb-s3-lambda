@@ -31,7 +31,7 @@ provider:
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-central-1'}
-  role: arn:aws:iam::283181639305:role/lambda_basic_execution
+  role: arn:aws:iam::1234567890:role/lambda_basic_execution
   apiKeys:
     - superAdminKey
   environment:

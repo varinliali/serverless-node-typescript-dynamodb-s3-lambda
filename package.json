@@ -7,22 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.277.1",
-    "source-map-support": "^0.5.6"
+    "aws-sdk": "^2.296.0",
+    "source-map-support": "^0.5.9"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.7",
-    "@types/node": "^10.5.2",
+    "@types/aws-lambda": "^8.10.11",
+    "@types/node": "^10.7.1",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^0.1.0",
-    "serverless-offline": "^3.25.6",
+    "serverless-offline": "^3.25.8",
     "serverless-webpack": "^5.2.0",
     "standard": "^11.0.1",
-    "ts-loader": "^4.4.2",
+    "ts-loader": "^4.5.0",
     "tslint": "^5.11.0",
     "tslint-config-standard": "^7.1.0",
-    "typescript": "^2.9.2",
-    "webpack": "^4.16.1",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
   },
   "author": "Khaled Osman",
