@@ -4,10 +4,10 @@ starter template for an AWS lambda with serverless framework, typescript, S3 &am
 #### This Project was bootstraped using serverless framework using the aws-nodejs-typescript template by running ``` sls create -t aws-nodejs-typescript ```
 
 # Development workflow
-use ```npm start``` to run the project in offline mode and test it locally
-use ```npm run-script deploy``` to deploy the lambda as --region eu-central-1 & --stage live
-use ```npm run-script undeploy``` to delete the lambda and all related resources created by serverless
-use ```npm run-script build``` to generate an output zipfile in build/ directory that you can manually upload to AWS Lambda
+- use ```npm start``` to run the project in offline mode and test it locally
+- use ```npm run-script deploy``` to deploy the lambda as --region eu-central-1 & --stage live
+- use ```npm run-script undeploy``` to delete the lambda and all related resources created by serverless
+- use ```npm run-script build``` to generate an output zipfile in build/ directory that you can manually upload to AWS Lambda
 
 # Serverless introduction & AWS Setup
 
