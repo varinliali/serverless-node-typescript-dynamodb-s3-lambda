@@ -10,30 +10,26 @@ plugins:
   # - serverless-apigwy-binary
 
 package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
   exclude:
     - node_modules/**
     - .git/**
     - .serverless/**
     - yarn.lock
     - package-lock.json
-#    - exclude-me.js
-#    - exclude-me-dir/**
+    - build/**
   excludeDevDependencies: true  
 
 custom:
-  bucket: devtool-plugins
-  dynamodb_table: DevTool-ApiKeys #${self:service.name}-${opt:stage, self:provider.stage}
+  bucket: some-bucket
+  dynamodb_table: some-table
 provider:
   name: aws
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-central-1'}
   role: arn:aws:iam::1234567890:role/lambda_basic_execution
-  apiKeys:
-    - superAdminKey
+  # apiKeys:
+  #   - superAdminKey
   environment:
     NODE_ENV: PRODUCTION
     S3_BUCKET: ${self:custom.bucket}

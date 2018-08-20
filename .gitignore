@@ -67,3 +67,5 @@ typings/
 
 # Webpack directories
 .webpack
+
+build/
