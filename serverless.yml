@@ -30,7 +30,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-central-1'}
+  region: ${opt:region, 'eu-central-1'}
   role: arn:aws:iam::283181639305:role/lambda_basic_execution
   apiKeys:
     - superAdminKey
