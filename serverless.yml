@@ -6,6 +6,7 @@ service:
 plugins:
   - serverless-webpack
   - serverless-offline
+
   # - serverless-apigw/-binary
   # - serverless-apigwy-binary
 
@@ -20,30 +21,38 @@ package:
   excludeDevDependencies: true  
 
 custom:
-  bucket: some-bucket
-  dynamodb_table: some-table
+  S3_BUCKET: some-bucket
+  DYNAMODB_TABLE: some-table
 provider:
   name: aws
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-central-1'}
   role: arn:aws:iam::1234567890:role/lambda_basic_execution
+  apiGateway:
+    minimumCompressionSize: 0
   # apiKeys:
   #   - superAdminKey
   environment:
-    NODE_ENV: PRODUCTION
-    S3_BUCKET: ${self:custom.bucket}
-    DYNAMODB_TABLE: ${self:custom.dynamodb_table}
+    NODE_ENV: production
+    S3_BUCKET: ${self:S3_BUCKET}-${self:provider.stage}
+    DYNAMODB_TABLE: ${self:custom.DYNAMODB_TABLE}-${self:provider.stage}
 
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
          - "s3:*"
-       Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+       Resource: "arn:aws:s3:::${self:S3_BUCKET}/*"
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.dynamodb_table}"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.DYNAMODB_TABLE}"
+
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
+
 
 functions:
   pluginsService:
@@ -51,15 +60,16 @@ functions:
     events:
       - http:
           method: get
-          path: /
+          cors: true
           # private: true
+          path: /
 
 # resources:
 #   Resources:
 #     DevToolPluginsS3Bucket:
 #       Type: 'AWS::S3::Bucket'
 #       Properties:
-#         BucketName: ${self:custom.bucket}
+#         BucketName: ${self:S3_BUCKET}
 #         # add additional custom bucket configuration here
 #     DevToolApiKeysDynamoDbTable:
 #       Type: 'AWS::DynamoDB::Table'
