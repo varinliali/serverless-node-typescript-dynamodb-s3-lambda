@@ -14,7 +14,7 @@
     "source-map-support": "^0.5.11"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.23",
+    "@types/aws-lambda": "^8.10.40",
     "@types/node": "^11.13.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^1.0.0",
