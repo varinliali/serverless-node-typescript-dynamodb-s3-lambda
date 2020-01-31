@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.436.0",
+    "aws-sdk": "^2.610.0",
     "source-map-support": "^0.5.11"
   },
   "devDependencies": {
